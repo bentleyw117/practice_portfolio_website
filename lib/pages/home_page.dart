@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:my_portfolio_website/constants/colors.dart';
 import 'package:my_portfolio_website/constants/nav_items.dart';
 import 'package:my_portfolio_website/styles/style.dart';
@@ -19,45 +20,50 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      backgroundColor: CustomColor.scaffoldBg,
-      endDrawer: const DrawerMobile(),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          // MAIN
-          //HeaderDesktop(),
-          HeaderMobile(
-            onLogoTap: () {},
-            onMenuTap: () {
-              scaffoldKey.currentState?.openEndDrawer();
-            },
+    return LayoutBuilder(
+      builder: (context,constraints) {
+        return Scaffold(
+          key: scaffoldKey,
+          backgroundColor: CustomColor.scaffoldBg,
+          endDrawer: const DrawerMobile(),
+          body: ListView(
+            scrollDirection: Axis.vertical,
+            children: [
+              // MAIN
+              if(constraints.maxWidth >= 600.0)
+              const HeaderDesktop() else
+              HeaderMobile(
+                onLogoTap: () {},
+                onMenuTap: () {
+                  scaffoldKey.currentState?.openEndDrawer();
+                },
+              ),
+              // SKILLS
+              Container(
+                height: 500,
+                width: double.maxFinite,
+                color: Colors.blueGrey,
+              ),
+              // PROJECTS
+              Container(
+                height: 500,
+                width: double.maxFinite,
+              ),
+              // CONTACTS
+              Container(
+                height: 500,
+                width: double.maxFinite,
+                color: Colors.blueGrey,
+              ),
+              // FOOTER
+              Container(
+                height: 500,
+                width: double.maxFinite,
+              ),
+            ],
           ),
-          // SKILLS
-          Container(
-            height: 500,
-            width: double.maxFinite,
-            color: Colors.blueGrey,
-          ),
-          // PROJECTS
-          Container(
-            height: 500,
-            width: double.maxFinite,
-          ),
-          // CONTACTS
-          Container(
-            height: 500,
-            width: double.maxFinite,
-            color: Colors.blueGrey,
-          ),
-          // FOOTER
-          Container(
-            height: 500,
-            width: double.maxFinite,
-          ),
-        ],
-      ),
+        );
+      }
     );
   }
 }
