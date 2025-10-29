@@ -8,6 +8,7 @@ import 'package:my_portfolio_website/widgets/drawer_mobile.dart';
 import 'package:my_portfolio_website/widgets/header_desktop.dart';
 import 'package:my_portfolio_website/widgets/header_mobile.dart';
 import 'package:my_portfolio_website/widgets/main_desktop.dart';
+import 'package:my_portfolio_website/widgets/main_mobile.dart';
 import 'package:my_portfolio_website/widgets/site_logo.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,28 +23,34 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final screenSize =MediaQuery.of(context).size;
+    final screenSize = MediaQuery.of(context).size;
     final screenWidth = screenSize.width;
 
     return LayoutBuilder(
-      builder: (context,constraints) {
+      builder: (context, constraints) {
         return Scaffold(
           key: scaffoldKey,
           backgroundColor: CustomColor.scaffoldBg,
-          endDrawer: constraints.maxWidth >= kMinDesktopWidth ? null: DrawerMobile(),
+          endDrawer: constraints.maxWidth >= kMinDesktopWidth
+              ? null
+              : DrawerMobile(),
           body: ListView(
             scrollDirection: Axis.vertical,
             children: [
               // MAIN
-              if(constraints.maxWidth >= kMinDesktopWidth)
-              const HeaderDesktop() else
-              HeaderMobile(
-                onLogoTap: () {},
-                onMenuTap: () {
-                  scaffoldKey.currentState?.openEndDrawer();
-                },
-              ),
-              const MainDesktop(),
+              if (constraints.maxWidth >= kMinDesktopWidth)
+                const HeaderDesktop()
+              else
+                HeaderMobile(
+                  onLogoTap: () {},
+                  onMenuTap: () {
+                    scaffoldKey.currentState?.openEndDrawer();
+                  },
+                ),
+              if (constraints.maxWidth >= kMinDesktopWidth)
+                const MainDesktop()
+              else
+                MainMobile(),
               // SKILLS
               Container(
                 height: 500,
@@ -51,10 +58,7 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.blueGrey,
               ),
               // PROJECTS
-              Container(
-                height: 500,
-                width: double.maxFinite,
-              ),
+              Container(height: 500, width: double.maxFinite),
               // CONTACTS
               Container(
                 height: 500,
@@ -62,14 +66,11 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.blueGrey,
               ),
               // FOOTER
-              Container(
-                height: 500,
-                width: double.maxFinite,
-              ),
+              Container(height: 500, width: double.maxFinite),
             ],
           ),
         );
-      }
+      },
     );
   }
 }

@@ -9,21 +9,17 @@ class HeaderMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-            height: 50,
-            margin: const EdgeInsets.fromLTRB(40, 5, 20, 5),
-            decoration: kHeaderDecoration,
-            child: Row(
-              children: [
-                SiteLogo(
-                  onTap: onLogoTap,
-                ),
-                const Spacer(),
-                IconButton(onPressed: onMenuTap, 
-                  icon: const Icon(Icons.menu)
-                ),
-                SizedBox(width: 15,),
-              ],
-            ),
-          );
+      height: 50,
+      margin: const EdgeInsets.fromLTRB(40, 5, 20, 5),
+      decoration: kHeaderDecoration,
+      child: Row(
+        children: [
+          SiteLogo(onTap: onLogoTap),
+          const Spacer(),
+          IconButton(onPressed: onMenuTap, icon: const Icon(Icons.menu)),
+          SizedBox(width: 15),
+        ],
+      ),
+    );
   }
 }
