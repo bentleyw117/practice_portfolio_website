@@ -6,6 +6,8 @@ import 'package:my_portfolio_website/constants/size.dart';
 import 'package:my_portfolio_website/constants/skill_items.dart';
 import 'package:my_portfolio_website/styles/style.dart';
 import 'package:my_portfolio_website/utils/project_utils.dart';
+import 'package:my_portfolio_website/widgets/contact_section.dart';
+import 'package:my_portfolio_website/widgets/custom_text_field.dart';
 import 'package:my_portfolio_website/widgets/drawer_mobile.dart';
 import 'package:my_portfolio_website/widgets/header_desktop.dart';
 import 'package:my_portfolio_website/widgets/header_mobile.dart';
@@ -92,22 +94,8 @@ class _HomePageState extends State<HomePage> {
               const ProjectsSection(),
 
               // CONTACTS
-              Container(
-                padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
-                color: CustomColor.bgLight1,
-                child: Column(
-                  children: [
-                    Text(
-                      'Get in Touch',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                        color: CustomColor.whitePrimary,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              ContactSection(),
+
               // FOOTER
               Container(height: 500, width: double.maxFinite),
             ],
