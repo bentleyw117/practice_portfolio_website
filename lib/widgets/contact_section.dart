@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:my_portfolio_website/constants/colors.dart';
 import 'package:my_portfolio_website/constants/size.dart';
 import 'package:my_portfolio_website/constants/sns_links.dart';
@@ -55,7 +54,9 @@ class ContactSection extends StatelessWidget {
             child: SizedBox(
               //width: double.maxFinite,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  js.context.callMethod('open', [SnsLinks.blog]);
+                },
                 child: const Text('Send'),
               ),
             ),

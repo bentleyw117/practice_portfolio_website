@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio_website/constants/colors.dart';
+import 'package:my_portfolio_website/constants/sns_links.dart';
+import 'dart:js' as js;
 
 class MainMobile extends StatelessWidget {
   const MainMobile({super.key});
@@ -51,7 +53,9 @@ class MainMobile extends StatelessWidget {
             width: 180,
             height: 50,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                js.context.callMethod('open', [SnsLinks.blog]);
+              },
               style: ElevatedButton.styleFrom(
                 backgroundColor: const Color.fromARGB(255, 41, 95, 255),
               ),

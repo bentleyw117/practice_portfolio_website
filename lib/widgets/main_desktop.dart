@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio_website/constants/colors.dart';
+import 'dart:js' as js;
+import 'package:my_portfolio_website/constants/sns_links.dart';
 
 class MainDesktop extends StatelessWidget {
   const MainDesktop({super.key});
@@ -33,7 +35,9 @@ class MainDesktop extends StatelessWidget {
                 width: 270,
                 height: 50,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    js.context.callMethod('open', [SnsLinks.blog]);
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 41, 95, 255),
                   ),
