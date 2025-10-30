@@ -9,6 +9,7 @@ import 'package:my_portfolio_website/utils/project_utils.dart';
 import 'package:my_portfolio_website/widgets/contact_section.dart';
 import 'package:my_portfolio_website/widgets/custom_text_field.dart';
 import 'package:my_portfolio_website/widgets/drawer_mobile.dart';
+import 'package:my_portfolio_website/widgets/footer.dart';
 import 'package:my_portfolio_website/widgets/header_desktop.dart';
 import 'package:my_portfolio_website/widgets/header_mobile.dart';
 import 'package:my_portfolio_website/widgets/main_desktop.dart';
@@ -97,7 +98,7 @@ class _HomePageState extends State<HomePage> {
               ContactSection(),
 
               // FOOTER
-              Container(height: 500, width: double.maxFinite),
+              Footer(),
             ],
           ),
         );
