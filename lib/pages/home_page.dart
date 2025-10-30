@@ -12,6 +12,7 @@ import 'package:my_portfolio_website/widgets/header_mobile.dart';
 import 'package:my_portfolio_website/widgets/main_desktop.dart';
 import 'package:my_portfolio_website/widgets/main_mobile.dart';
 import 'package:my_portfolio_website/widgets/project_card.dart';
+import 'package:my_portfolio_website/widgets/projects_section.dart';
 import 'package:my_portfolio_website/widgets/site_logo.dart';
 import 'package:my_portfolio_website/widgets/skills_desktop.dart';
 import 'package:my_portfolio_website/widgets/skills_mobile.dart';
@@ -85,33 +86,27 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+              const SizedBox(height: 30),
 
               // PROJECTS
+              const ProjectsSection(),
+
+              // CONTACTS
               Container(
-                width: screenWidth,
                 padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
+                color: CustomColor.bgLight1,
                 child: Column(
                   children: [
-                    // work projects
-                    const Text(
-                      'Work projects',
+                    Text(
+                      'Get in Touch',
                       style: TextStyle(
-                        fontSize: 24,
                         fontWeight: FontWeight.bold,
+                        fontSize: 24,
                         color: CustomColor.whitePrimary,
                       ),
                     ),
-
-                    // work projects cards
-                    ProjectCardWidget(project: workProjectUtils.first),
                   ],
                 ),
-              ),
-              // CONTACTS
-              Container(
-                height: 500,
-                width: double.maxFinite,
-                color: Colors.blueGrey,
               ),
               // FOOTER
               Container(height: 500, width: double.maxFinite),
