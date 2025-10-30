@@ -4,6 +4,7 @@ import 'package:my_portfolio_website/constants/colors.dart';
 import 'package:my_portfolio_website/constants/nav_items.dart';
 import 'package:my_portfolio_website/constants/size.dart';
 import 'package:my_portfolio_website/constants/skill_items.dart';
+import 'package:my_portfolio_website/constants/sns_links.dart';
 import 'package:my_portfolio_website/styles/style.dart';
 import 'package:my_portfolio_website/utils/project_utils.dart';
 import 'package:my_portfolio_website/widgets/contact_section.dart';
@@ -19,6 +20,7 @@ import 'package:my_portfolio_website/widgets/projects_section.dart';
 import 'package:my_portfolio_website/widgets/site_logo.dart';
 import 'package:my_portfolio_website/widgets/skills_desktop.dart';
 import 'package:my_portfolio_website/widgets/skills_mobile.dart';
+import 'dart:js' as js;
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +31,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  final scrollController = ScrollController();
+  final List<GlobalKey> navBarKeys = List.generate(4, (index) => GlobalKey());
 
   @override
   Widget build(BuildContext context) {
@@ -42,67 +46,96 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: CustomColor.scaffoldBg,
           endDrawer: constraints.maxWidth >= kMinDesktopWidth
               ? null
-              : DrawerMobile(),
-          body: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              // MAIN
-              if (constraints.maxWidth >= kMinDesktopWidth)
-                const HeaderDesktop()
-              else
-                HeaderMobile(
-                  onLogoTap: () {},
-                  onMenuTap: () {
-                    scaffoldKey.currentState?.openEndDrawer();
+              : DrawerMobile(
+                  onNavItemTap: (int navIndex) {
+                    scaffoldKey.currentState?.closeEndDrawer();
+                    // call function
+                    scrollToSection(navIndex);
                   },
                 ),
-              if (constraints.maxWidth >= kMinDesktopWidth)
-                const MainDesktop()
-              else
-                MainMobile(),
+          body: SingleChildScrollView(
+            controller: scrollController,
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                SizedBox(key: navBarKeys.first),
+                // MAIN
+                if (constraints.maxWidth >= kMinDesktopWidth)
+                  HeaderDesktop(
+                    onNavMenuTap: (int navIndex) {
+                      // call funtion
+                      scrollToSection(navIndex);
+                    },
+                  )
+                else
+                  HeaderMobile(
+                    onLogoTap: () {},
+                    onMenuTap: () {
+                      scaffoldKey.currentState?.openEndDrawer();
+                    },
+                  ),
+                if (constraints.maxWidth >= kMinDesktopWidth)
+                  const MainDesktop()
+                else
+                  MainMobile(),
 
-              // SKILLS
-              // title
-              Container(
-                padding: EdgeInsets.fromLTRB(25, 20, 25, 60),
-                width: screenWidth,
-                color: CustomColor.bgLight1,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    // title
-                    const Text(
-                      'What I can do',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColor.whitePrimary,
+                // SKILLS
+                Container(
+                  key: navBarKeys[1],
+                  padding: EdgeInsets.fromLTRB(25, 20, 25, 60),
+                  width: screenWidth,
+                  color: CustomColor.bgLight1,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // title
+                      const Text(
+                        'What I can do',
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: CustomColor.whitePrimary,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 50),
+                      const SizedBox(height: 50),
 
-                    // platform and skills
-                    if (constraints.maxWidth >= kMedDesktopWidth)
-                      const SkillsDesktop()
-                    else
-                      SkillsMobile(),
-                  ],
+                      // platform and skills
+                      if (constraints.maxWidth >= kMedDesktopWidth)
+                        const SkillsDesktop()
+                      else
+                        SkillsMobile(),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 30),
+                const SizedBox(height: 30),
 
-              // PROJECTS
-              const ProjectsSection(),
+                // PROJECTS
+                ProjectsSection(key: navBarKeys[2]),
 
-              // CONTACTS
-              ContactSection(),
+                // CONTACTS
+                ContactSection(key: navBarKeys[3]),
 
-              // FOOTER
-              Footer(),
-            ],
+                // FOOTER
+                Footer(),
+              ],
+            ),
           ),
         );
       },
+    );
+  }
+
+  void scrollToSection(int navIndex) {
+    if (navIndex == 4) {
+      // open a blog page
+      js.context.callMethod('open', [SnsLinks.blog]);
+      return;
+    }
+    final key = navBarKeys[navIndex];
+    Scrollable.ensureVisible(
+      key.currentContext!,
+      duration: const Duration(milliseconds: 500),
+      curve: Curves.easeInOut,
     );
   }
 }
