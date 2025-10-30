@@ -5,11 +5,13 @@ import 'package:my_portfolio_website/constants/nav_items.dart';
 import 'package:my_portfolio_website/constants/size.dart';
 import 'package:my_portfolio_website/constants/skill_items.dart';
 import 'package:my_portfolio_website/styles/style.dart';
+import 'package:my_portfolio_website/utils/project_utils.dart';
 import 'package:my_portfolio_website/widgets/drawer_mobile.dart';
 import 'package:my_portfolio_website/widgets/header_desktop.dart';
 import 'package:my_portfolio_website/widgets/header_mobile.dart';
 import 'package:my_portfolio_website/widgets/main_desktop.dart';
 import 'package:my_portfolio_website/widgets/main_mobile.dart';
+import 'package:my_portfolio_website/widgets/project_card.dart';
 import 'package:my_portfolio_website/widgets/site_logo.dart';
 import 'package:my_portfolio_website/widgets/skills_desktop.dart';
 import 'package:my_portfolio_website/widgets/skills_mobile.dart';
@@ -85,7 +87,26 @@ class _HomePageState extends State<HomePage> {
               ),
 
               // PROJECTS
-              Container(height: 500, width: double.maxFinite),
+              Container(
+                width: screenWidth,
+                padding: const EdgeInsets.fromLTRB(25, 20, 25, 60),
+                child: Column(
+                  children: [
+                    // work projects
+                    const Text(
+                      'Work projects',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: CustomColor.whitePrimary,
+                      ),
+                    ),
+
+                    // work projects cards
+                    ProjectCardWidget(project: workProjectUtils.first),
+                  ],
+                ),
+              ),
               // CONTACTS
               Container(
                 height: 500,
